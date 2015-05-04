@@ -1,0 +1,88 @@
+//   index.jade
+
+doctype
+html
+   head
+      title="dosha"
+      script(src = '/js/jquery-1.11.1.min.js')
+      script(src = '/js/bootstrap.min.js')
+      link(rel='stylesheet', href='/css/style.css', type='text/css')
+      link(rel='stylesheet', href='/css/bootstrap.min.css', type='text/css')
+   body
+      .container#main
+         .navbar.navbar-default#menu
+            .container
+               a#logo.navbar-brand(href='/') Akura
+                  //img(src='image/logo.png', alt='Our logo')
+               .navbar-collapse.collapse.navbar-responsive-collapse
+                  ul.nav.navbar-nav
+                     li.active
+                        a(href="#") Home
+                     li
+                        a(href="#mymodal", data-toggle="modal", role="dialog", data-target="#mymodal") Away
+      #mymodal.modal.fade
+         .modal-dialog
+            .modal-content
+               .modal-header
+                  button.close(type='button', data-dismiss='modal', aria-label='Close')
+                     span(aria-hidden='true') ?
+                  h4.modal-title Modal title
+               .modal-body
+                  form.form-horizontal(name='formLogin')
+                     .form-group
+                        label.col-lg-2.control-label(for='inputLogin') Login
+                        .col-lg-10
+                           input.form-control#inputLogin(placeholder='login', type='text', value='name', name='name')
+                        label.col-lg-2.control-label(for='inputPassword') Password
+                        .col-lg-10
+                           input.form-control#inputPassword(placeholder='password', type='password', value='pass', name='pass')
+                        .btn-group.pull-right
+                           button.btn.btn-default(type='button', data-dismiss='modal') Do not touch!
+                           button.btn.btn-primary(type='submit') Enter
+               .modal-footer
+                  span.error
+
+   footer.footer.navbar-fixed-bottom
+      .container
+         .row
+            .col-sm-2
+               .h6 Copyright &copy; 2015 Akura
+            .col-sm-6
+               .h6 About Us
+               p Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iste, earum dolor quod incidunt, veritatis itaque facere, iusto quo, repellendus dolorem quae! Possimus dignissimos quod beatae quis deleniti a! Libero et possimus exercitationem laboriosam non, hic, fugit perspiciatis dicta sunt cupiditate ducimus
+            .col-sm-2
+               .h6 Navigation
+               ul.list-unstyled
+                  li
+                     a(href="#") Home
+                  li
+                     a(href="#") Something
+                  li
+                     a(href="#") More something
+                  li
+                     a(href="#") Contacts
+            .col-sm-2
+   script.
+      $(document.forms['formLogin']).on('submit', function(){
+         var form = $(this);
+         $('.error', form).html('');
+
+         $.ajax({
+            url: "/auth",
+            method: "POST",
+            data: form.serialize(),
+            complete: function () {
+               $(":submit", form).button("reset");
+            },
+            statusCode: {
+               200: function () {
+                  form.html("Yoe are in site").addClass('alert-success');
+                  window.location.href = '/chat';
+               },
+               403: function (jqXHR) {
+                  var error = JSON.parse(jqXHR.responseText);
+                  $('.error', form).html(error.message);
+               }
+            }
+         });
+      });

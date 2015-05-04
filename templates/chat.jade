@@ -1,0 +1,30 @@
+// chat.jade
+doctype
+html
+   head
+      title="..."
+      script(src = '/js/jquery-1.11.1.min.js')
+      script(src = '/js/bootstrap.min.js')
+      script(src = '/bootstrap-checkbox.min.js')
+      script(src = '/chat.js')
+      script(src = '/socket.io/socket.io.js')
+      style
+         link(rel='stylesheet', href='/css/style.css', type='text/css')
+         //include ../public/css/checkbox.css
+         link(rel='stylesheet', href='netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css')
+         link(rel='stylesheet', href='/css/bootstrap.min.css', type='text/css')
+   body
+      //p welcome, #{ntlm.UserName}!
+      fieldset#fieldMain
+         legend Основной чат
+         #simple
+      #usersOnline
+      .clearfix
+      #vvod
+         form#forma(action='', onsubmit='return false')
+            textarea#textOfMessage
+            input#send.btn.btn-primary(type='submit', value='send message')
+      .clearfix
+      #confirmSended
+      #confirmReceived
+      #private
