@@ -41,11 +41,11 @@ app.use(session({
     cookie: config.get('session:cookie'),
     store: new MongoStore({mongooseConnection: mongoose.connection})
 }));
-
-app.use(function (req, res, next) {
-    req.session.numberOfVisits = req.session.numberOfVisits +1 || 1;
-    res.send("Visits: " + req.session.numberOfVisits);
-});
+//
+//app.use(function (req, res, next) {
+//    req.session.numberOfVisits = req.session.numberOfVisits +1 || 1;
+//    res.send("Visits: " + req.session.numberOfVisits);
+//});
 
 app.use(require('middleware/sendHttpError'));
 
@@ -65,6 +65,7 @@ app.get('/auth', function (req, res, next) {
 app.post('/auth', function (req, res, next) {
     var name = req.body.name;
     var password = req.body.pass;
+    console.log(name + '   ' + password);
     next();
 });
 
@@ -73,22 +74,22 @@ app.get('/chat', function (req, res, next) {
 });
 
 
-app.use(function (err, req, res, next) {
-    if(typeof  err == 'number') {
-        err = new HttpError(err);
-        console.log('number');
-    }
-    if(err instanceof HttpError) {
-        res.sendHttpError(err);
-    }else {
-        if (app.get('env') == 'development') {
-            var errorHandler = express._errorHandler();
-            errorHandler(err, req, res, next);
-        } else {
-            log.error(err);
-            res.send(500);
-            res.sendHttpError(err);
-        }
-    }
-});
+//app.use(function (err, req, res, next) {
+//    if(typeof  err == 'number') {
+//        err = new HttpError(err);
+//        console.log('number');
+//    }
+//    if(err instanceof HttpError) {
+//        res.sendHttpError(err);
+//    }else {
+//        if (app.get('env') == 'development') {
+//            var errorHandler = express._errorHandler();
+//            errorHandler(err, req, res, next);
+//        } else {
+//            log.error(err);
+//            res.send(500);
+//            res.sendHttpError(err);
+//        }
+//    }
+//});
 

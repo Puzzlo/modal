@@ -1,30 +1,51 @@
 //    modal_auth
-doctype
-html
-    head
-        //meta(charset='utf-8')
-        title="jade"
-        script(src='js/jquery-1.11.1.min.js')
-        script(src='js/bootstrap.min.js')
-        //script(src = '/bootstrap-checkbox.min.js')
-        //script(src = '/chat.js')
-        //script(src = '/socket.io/socket.io.js')
-        //link(rel='stylesheet', href='css/style.css', type='text/css')
-            //include ../public/css/checkbox.css
-            //link(rel='stylesheet', href='netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css')
-        link(rel='stylesheet', href='css/bootstrap.min.css', type='text/css')
-    body
+//doctype
+//html
+//    head
+//        //meta(charset='utf-8')
+//        title="jade"
+//        script(src='js/jquery-1.11.1.min.js')
+//        script(src='js/bootstrap.min.js')
+//        //script(src = '/bootstrap-checkbox.min.js')
+//        //script(src = '/chat.js')
+//        //script(src = '/socket.io/socket.io.js')
+//        //link(rel='stylesheet', href='css/style.css', type='text/css')
+//            //include ../public/css/checkbox.css
+//            //link(rel='stylesheet', href='netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css')
+//        link(rel='stylesheet', href='css/bootstrap.min.css', type='text/css')
+body
         // Button trigger modal
         //button.btn.btn-primary.btn-lg(data-toggle='modal', data-target='#myModal') go to site?
         // Modal
-        #myModal.modal.fade(data-toggle='modal',tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
-            .modal-dialog
-                .modal-content
-                    .modal-header
-                        button.close(type='button', data-dismiss='modal', aria-hidden='true') ?
-                        h4#myModalLabel.modal-title Authentication
-                    .modal-body
-
-                    .modal-footer
-                        button.btn.btn-default(type='button', data-dismiss='modal') Not press this!
-                        button.btn.btn-primary(type='button') Save and enter
+        //#myModal.modal.fade(data-toggle='modal',tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
+        //    .modal-dialog
+        //        .modal-content
+        //            .modal-header
+        //                button.close(type='button', data-dismiss='modal', aria-hidden='true') ?
+        //                h4#myModalLabel.modal-title Authentication
+        //            .modal-body
+        //
+        //            .modal-footer
+        //                button.btn.btn-default(type='button', data-dismiss='modal') Not press this!
+        //                button.btn.btn-primary(type='button') Save and enter
+    #mymodal.modal.fade
+        .modal-dialog
+            .modal-content
+                .modal-header
+                    button.close(type='button', data-dismiss='modal', aria-label='Close')
+                        span(aria-hidden='true') ?
+                    h4.modal-title Modal title
+                .modal-body
+                    form.form-horizontal(name='formLogin')
+                        .form-group
+                            label.col-lg-2.control-label(for='inputLogin') Login
+                            .col-lg-10
+                                input.form-control#inputLogin(placeholder='login', type='text', value='name', name='name')
+                            label.col-lg-2.control-label(for='inputPassword') Password
+                            .col-lg-10
+                                input.form-control#inputPassword(placeholder='password', type='password', value='pass', name='pass')
+                            .btn-group.pull-right
+                                button.btn.btn-default(type='button', data-dismiss='modal') Do not touch!
+                                button.btn.btn-primary(type='submit') Enter
+                .modal-footer
+                    span.error

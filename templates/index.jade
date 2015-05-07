@@ -19,7 +19,10 @@ html
                      li.active
                         a(href="#") Home
                      li
-                        a(href="#mymodal", data-toggle="modal", role="dialog", data-target="#mymodal") Away
+                        a(href="#mymodal", data-toggle="modal", role="dialog", data-target="#mymodal") Чат
+                  ul.nav.navbar-nav.pull-right
+                     li
+                        a(href="#register", data-toggle="modal", role="dialog", data-target="#register") Регистрация
       #mymodal.modal.fade
          .modal-dialog
             .modal-content
@@ -33,16 +36,44 @@ html
                         label.col-lg-2.control-label(for='inputLogin') Login
                         .col-lg-10
                            input.form-control#inputLogin(placeholder='login', type='text', value='name', name='name')
-                        label.col-lg-2.control-label(for='inputPassword') Password
+                        label.col-lg-2.m15.control-label(for='inputPassword') Password
                         .col-lg-10
-                           input.form-control#inputPassword(placeholder='password', type='password', value='pass', name='pass')
-                        .btn-group.pull-right
-                           button.btn.btn-default(type='button', data-dismiss='modal') Do not touch!
-                           button.btn.btn-primary(type='submit') Enter
+                           input.form-control.m15#inputPassword(placeholder='password', type='password', value='pass', name='pass')
+                        .btn.pull-right
+                            .btn-group
+                                button.btn.btn-default(type='button', data-dismiss='modal') Do not touch!
+                                button.btn.btn-primary(type='submit') Enter
                .modal-footer
                   span.error
+      #register.modal.fade
+           .modal-dialog
+               .modal-content
+                   .modal-header
+                       button.close(type='button', data-dismiss='modal', aria-label='Close')
+                           span(aria-hidden='true') X
+                       h4#titleReg.modal-title
+                            | Регистрация нового персонажа <br />
+                            | пароль - не меньше 5 букв.
+                   .modal-body
+                       form.form-horizontal(name='formRegister')
+                           .form-group
+                               label.col-lg-2.control-label(for='inputLogin') Login
+                               .col-lg-10
+                                   input.form-control#inputRegister(placeholder='login', type='text', value='name', name='name')
+                               label.col-lg-2.m15.control-label(for='inputPasswordReg') Password
+                               .col-lg-10
+                                   input.form-control.m15#inputPasswordReg(placeholder='password', type='password', value='password', name='pass')
+                               label.col-lg-2.m15.control-label(for='inputPasswordRegAgain') Password again
+                               .col-lg-10
+                                   input.form-control.m15#inputPasswordRegAgain(placeholder='password', type='password', value='password', name='passAgain')
+                               .btn.pull-right.btn-group
+                                   button#btnRegister.btn.btn-warning(type='submit') Зарегистрироваться
 
-   footer.footer.navbar-fixed-bottom
+                   .modal-footer
+                       span.error
+
+
+    footer.footer.navbar-fixed-bottom
       .container
          .row
             .col-sm-2
@@ -66,13 +97,13 @@ html
       $(document.forms['formLogin']).on('submit', function(){
          var form = $(this);
          $('.error', form).html('');
-
+          console.log('in script');
          $.ajax({
             url: "/auth",
             method: "POST",
             data: form.serialize(),
             complete: function () {
-               $(":submit", form).button("reset");
+              $(":submit", form).button("reset");
             },
             statusCode: {
                200: function () {
@@ -86,3 +117,33 @@ html
             }
          });
       });
+
+       $(document.forms['formRegister']).on('submit', function(){
+           var form = $(this);
+           $('.error', form).html('');
+
+           var pass1 = document.getElementById('inputPasswordReg').value;
+           var pass2 = document.getElementById('inputPasswordRegAgain').value;
+           if(pass1 !== pass2) {
+               document.getElementById('titleReg').value = 'Пароли же должны совпадать. Определитесь, пожалуйста';
+               return;
+           } else{
+
+           }
+           $.ajax({
+                url: "/registration",
+                method: "POST",
+                data: form.serialize(),
+               statusCode: {
+                   200: function(id) {
+                       window.location.href = '/users/:'+id;
+                       console.log('registration success');
+                   },
+                   403: function (jqXHR) {
+                       var error = JSON.parse(jqXHR.responseText);
+                       $('.error', form).html(error.message);
+                   }
+               }
+           });
+
+       });

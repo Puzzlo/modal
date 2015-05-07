@@ -73,8 +73,8 @@ textarea#textOfMessage {
 }
 
 /* login form */
-#inputPassword {
-    margin: 15px 0;
+.m15 {
+    margin: 15px 0 10px 0;
 }
 
 /* logo + footer style */

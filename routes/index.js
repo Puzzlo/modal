@@ -6,12 +6,14 @@ var User = require('models/user').User,
 module.exports = function (app) {
 
 
-    app.get('/', function (req, res) {
-        res.setHeader('Content-Type', 'text/html; charset=utf-8');
-        //res.header("Content-Type", "application/json; charset=utf-8");
-        //res.render('index');
-        res.render('index');
-    });
+    app.get('/', require('./frontpage').get);
+
+    app.get('/chat', require('./chat').get);
+
+    app.get('/auth', require('./modal_auth').get);
+
+    app.post('/registration', require('./registration').post);
+
 
     app.get('/users', function (req, res, next) {
         User.find({}, function (err, users) {
@@ -21,6 +23,7 @@ module.exports = function (app) {
     });
 
     app.get('/users/:id', function (req, res, next) {
+        console.log('in users/:id='+ req.params.id);
         User.findById(req.params.id, function(err, user){
             if(err) return next(err);
             if(!user) {
@@ -31,5 +34,6 @@ module.exports = function (app) {
             res.json(user);
         });
     });
+
 
 };
