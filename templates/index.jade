@@ -3,11 +3,13 @@
 doctype
 html
    head
-      title="dosha"
-      script(src = '/js/jquery-1.11.1.min.js')
-      script(src = '/js/bootstrap.min.js')
-      link(rel='stylesheet', href='/css/style.css', type='text/css')
-      link(rel='stylesheet', href='/css/bootstrap.min.css', type='text/css')
+        title="fonkr"
+        meta(charset='utf-8')
+        link(rel='stylesheet', href='/css/style.css', type='text/css')
+        link(rel='stylesheet', href='/css/bootstrap.min.css', type='text/css')
+        script(src = '/js/jquery-1.11.1.min.js')
+        script(src = '/js/bootstrap.min.js')
+        script(src = '/js/registrForm.js')
    body
       .container#main
          .navbar.navbar-default#menu
@@ -35,10 +37,10 @@ html
                      .form-group
                         label.col-lg-2.control-label(for='inputLogin') Login
                         .col-lg-10
-                           input.form-control#inputLogin(placeholder='login', type='text', value='name', name='name')
+                           input.form-control#inputLogin(placeholder='login', type='text', value='', name='name')
                         label.col-lg-2.m15.control-label(for='inputPassword') Password
                         .col-lg-10
-                           input.form-control.m15#inputPassword(placeholder='password', type='password', value='pass', name='pass')
+                           input.form-control.m15#inputPassword(placeholder='password', type='password', value='', name='pass')
                         .btn.pull-right
                             .btn-group
                                 button.btn.btn-default(type='button', data-dismiss='modal') Do not touch!
@@ -59,13 +61,15 @@ html
                            .form-group
                                label.col-lg-2.control-label(for='inputLogin') Login
                                .col-lg-10
-                                   input.form-control#inputRegister(placeholder='login', type='text', value='name', name='name')
+                                   input.form-control#inputRegister(placeholder='login', type='text', value='', name='name')
+                           .form-group
                                label.col-lg-2.m15.control-label(for='inputPasswordReg') Password
                                .col-lg-10
-                                   input.form-control.m15#inputPasswordReg(placeholder='password', type='password', value='password', name='pass')
+                                   input.form-control.m15#inputPasswordReg(placeholder='password', type='password', value='', name='pass')
+                           .form-group
                                label.col-lg-2.m15.control-label(for='inputPasswordRegAgain') Password again
                                .col-lg-10
-                                   input.form-control.m15#inputPasswordRegAgain(placeholder='password', type='password', value='password', name='passAgain')
+                                   input.form-control.m15#inputPasswordRegAgain(placeholder='password again', type='password', value='', name='passAgain')
                                .btn.pull-right.btn-group
                                    button#btnRegister.btn.btn-warning(type='submit') Зарегистрироваться
 
@@ -118,32 +122,32 @@ html
          });
       });
 
-       $(document.forms['formRegister']).on('submit', function(){
-           var form = $(this);
-           $('.error', form).html('');
-
-           var pass1 = document.getElementById('inputPasswordReg').value;
-           var pass2 = document.getElementById('inputPasswordRegAgain').value;
-           if(pass1 !== pass2) {
-               document.getElementById('titleReg').value = 'Пароли же должны совпадать. Определитесь, пожалуйста';
-               return;
-           } else{
-
-           }
-           $.ajax({
-                url: "/registration",
-                method: "POST",
-                data: form.serialize(),
-               statusCode: {
-                   200: function(id) {
-                       window.location.href = '/users/:'+id;
-                       console.log('registration success');
-                   },
-                   403: function (jqXHR) {
-                       var error = JSON.parse(jqXHR.responseText);
-                       $('.error', form).html(error.message);
-                   }
-               }
-           });
-
-       });
+//       $(document.forms['formRegister']).on('submit', function(){
+//           var form = $(this);
+//           $('.error', form).html('');
+//
+//           var pass1 = document.getElementById('inputPasswordReg').value;
+//           var pass2 = document.getElementById('inputPasswordRegAgain').value;
+//           if(pass1 !== pass2) {
+//               document.getElementById('titleReg').value = 'Пароли же должны совпадать. Определитесь, пожалуйста';
+//               return;
+//           } else{
+//
+//           }
+//           $.ajax({
+//                url: "/registration",
+//                method: "POST",
+//                data: form.serialize(),
+//               statusCode: {
+//                   200: function(id) {
+//                       window.location.href = '/users/:'+id;
+//                       console.log('registration success');
+//                   },
+//                   403: function (jqXHR) {
+//                       var error = JSON.parse(jqXHR.responseText);
+//                       $('.error', form).html(error.message);
+//                   }
+//               }
+//           });
+//
+//       });

@@ -87,3 +87,6 @@ footer {
 #logo {
     background-size: contain;
 }
+.tooltip-inner {
+    white-space: pre;
+}
