@@ -70,7 +70,7 @@ app.post('/auth', function (req, res, next) {
 });
 
 app.get('/chat', function (req, res, next) {
-   //res.render('chat');
+   res.render('chat');
 });
 
 

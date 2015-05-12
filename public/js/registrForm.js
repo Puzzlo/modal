@@ -17,7 +17,6 @@ $(document).ready(function () {
 
            var form = $(this),
                submitBtn = form.find('button[type="submit"]');
-           console.log( 'ser=' + form.serialize() );
 
            if( app.validateForm(form) === false ) return false;
            submitBtn.attr('disabled', 'disabled');
@@ -25,17 +24,35 @@ $(document).ready(function () {
            $.ajax({
                 url: "/registration",
                 method: "POST",
+                dataType: "json",
                 data: {name: form.find('#inputRegister').val(), pass: form.find('#inputPasswordReg').val()},
-               statusCode: {
-                   200: function(id) {
-                       window.location.href = '/users/:'+id;
-                       console.log('registration success');
-                   },
-                   403: function (jqXHR) {
-                       var error = JSON.parse(jqXHR.responseText);
-                       $('.error', form).html(error.message);
-                   }
-               }
+                statusCode: {
+                    200: function (message) {
+                        //window.location.href = '/users/:' + id;
+                        //console.log('registration success');
+                        //window.location.href = '/#mess_new_nick';
+                        //alert(message.message);
+                        $('#mess_new_nick').modal('show');
+                    },
+                    403: function (jqXHR) {
+                        var error = JSON.parse(jqXHR.responseText);
+                        $('.error', form).html(error.message);
+                        console.log('user is not available');
+                    },
+                    500: function (message) {
+                        //window.location.href = '/users/:' + id;
+                        console.log(JSON.stringify(message));
+                        alert(message.message);
+                    }
+                }
+               // success: function(data){
+               //     console.log(data);
+               //     if(data === '403') {
+               //         console.log('user is not available');
+               //     } else {
+               //         console.log('user added');
+               //     }
+               //}
            });
            $("#register").modal('hide');
        },

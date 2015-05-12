@@ -54,8 +54,7 @@ html
                        button.close(type='button', data-dismiss='modal', aria-label='Close')
                            span(aria-hidden='true') X
                        h4#titleReg.modal-title
-                            | Регистрация нового персонажа <br />
-                            | пароль - не меньше 5 букв.
+                            | Регистрация нового персонажа
                    .modal-body
                        form.form-horizontal(name='formRegister')
                            .form-group
@@ -76,6 +75,15 @@ html
                    .modal-footer
                        span.error
 
+       #mess_new_nick.modal.fade
+            .modal-dialog
+                .modal-content
+                    .modal-header
+                    .modal-body
+                        .span Извините, пользователь с таким именем уже существует.
+                    .modal-footer
+                        .btn.pull-right.btn-group
+                            button.btn.btn-danger(type='submit') Ой мама
 
     footer.footer.navbar-fixed-bottom
       .container
@@ -111,7 +119,8 @@ html
             },
             statusCode: {
                200: function () {
-                  form.html("Yoe are in site").addClass('alert-success');
+                  //form.html("Yoe are in site").addClass('alert-success');
+                   alert(1);
                   window.location.href = '/chat';
                },
                403: function (jqXHR) {
