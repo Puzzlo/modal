@@ -12,8 +12,8 @@ $(document).ready(function () {
             });
             $('#btn_to_register').on('click', function () {
                 $('#mess_new_nick').modal('hide');
-                $('#register').modal('show');
                 $('#btnRegister').removeClass('disabled');
+                $('#register').modal('show');
             });
             console.log('init check');
         },
