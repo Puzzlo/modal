@@ -5,6 +5,8 @@ $(document).ready(function () {
        initialize: function() {
            this.setUpListeners();
            console.log('iniatialize');
+           //$('#btnRegister').removeClass('disabled');
+           //$(this).find('button[type="submit"]').removeAttr('disabled');
        },
 
        setUpListeners: function() {
@@ -16,16 +18,27 @@ $(document).ready(function () {
            e.preventDefault();
 
            var form = $(this),
+               nameUser = form.find('#inputRegister').val(),
+               passUser = form.find('#inputPasswordReg').val(),
                submitBtn = form.find('button[type="submit"]');
 
+           //console.log(JSON.stringify(submitBtn));
+           console.log(submitBtn);
+
+
            if( app.validateForm(form) === false ) return false;
-           submitBtn.attr('disabled', 'disabled');
+
+           form.find('#inputRegister').val('');
+           form.find('#inputPasswordReg').val('');
+           form.find('#inputPasswordRegAgain').val('');
+           //submitBtn.attr('disabled', 'disabled');
+           submitBtn.addClass('disabled');
            console.log('go in ajax');
            $.ajax({
                 url: "/registration",
                 method: "POST",
                 dataType: "json",
-                data: {name: form.find('#inputRegister').val(), pass: form.find('#inputPasswordReg').val()},
+                data: {name: nameUser, pass: passUser},
                 statusCode: {
                     200: function (message) {
                         //window.location.href = '/users/:' + id;

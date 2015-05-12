@@ -10,6 +10,7 @@ html
         script(src = '/js/jquery-1.11.1.min.js')
         script(src = '/js/bootstrap.min.js')
         script(src = '/js/registrForm.js')
+        script(src = '/js/warningForm.js')
    body
       .container#main
          .navbar.navbar-default#menu
@@ -60,15 +61,15 @@ html
                            .form-group
                                label.col-lg-2.control-label(for='inputLogin') Login
                                .col-lg-10
-                                   input.form-control#inputRegister(placeholder='login', type='text', value='', name='name')
+                                   input.form-control#inputRegister(autocomplete='off', placeholder='login', type='text', value='', name='name')
                            .form-group
                                label.col-lg-2.m15.control-label(for='inputPasswordReg') Password
                                .col-lg-10
-                                   input.form-control.m15#inputPasswordReg(placeholder='password', type='password', value='', name='pass')
+                                   input.form-control.m15#inputPasswordReg(autocomplete='off', placeholder='password', type='password', value='', name='pass')
                            .form-group
                                label.col-lg-2.m15.control-label(for='inputPasswordRegAgain') Password again
                                .col-lg-10
-                                   input.form-control.m15#inputPasswordRegAgain(placeholder='password again', type='password', value='', name='passAgain')
+                                   input.form-control.m15#inputPasswordRegAgain(autocomplete='off', placeholder='password again', type='password', value='', name='passAgain')
                                .btn.pull-right.btn-group
                                    button#btnRegister.btn.btn-warning(type='submit') Зарегистрироваться
 
@@ -83,7 +84,8 @@ html
                         .span Извините, пользователь с таким именем уже существует.
                     .modal-footer
                         .btn.pull-right.btn-group
-                            button.btn.btn-danger(type='submit') Ой мама
+                            button.btn.btn-danger#btn_to_main(type='button', value = 'cancel') Я подумаю, что делать
+                            button.btn.btn-success#btn_to_register(type='button', value = 'nextAttempt') Я введу другое имя
 
     footer.footer.navbar-fixed-bottom
       .container
