@@ -13,6 +13,10 @@ $(document).ready(function () {
             $('#btn_to_register').on('click', function () {
                 $('#mess_new_nick').modal('hide');
                 $('#btnRegister').removeClass('disabled');
+                var arr = ['#inputRegister', '#inputPasswordReg', '#inputPasswordRegAgain'];
+                arr.forEach(function(id, i, arr) {
+                  $(id).parents('.form-group').removeClass('has-success').removeClass('has-error');
+                });
                 $('#register').modal('show');
             });
             console.log('init check');

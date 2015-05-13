@@ -26,66 +26,9 @@ html
                   ul.nav.navbar-nav.pull-right
                      li
                         a(href="#register", data-toggle="modal", role="dialog", data-target="#register") Регистрация
-      #mymodal.modal.fade
-         .modal-dialog
-            .modal-content
-               .modal-header
-                  button.close(type='button', data-dismiss='modal', aria-label='Close')
-                     span(aria-hidden='true') ?
-                  h4.modal-title Modal title
-               .modal-body
-                  form.form-horizontal(name='formLogin')
-                     .form-group
-                        label.col-lg-2.control-label(for='inputLogin') Login
-                        .col-lg-10
-                           input.form-control#inputLogin(placeholder='login', type='text', value='', name='name')
-                        label.col-lg-2.m15.control-label(for='inputPassword') Password
-                        .col-lg-10
-                           input.form-control.m15#inputPassword(placeholder='password', type='password', value='', name='pass')
-                        .btn.pull-right
-                            .btn-group
-                                button.btn.btn-default(type='button', data-dismiss='modal') Do not touch!
-                                button.btn.btn-primary(type='submit') Enter
-               .modal-footer
-                  span.error
-      #register.modal.fade
-           .modal-dialog
-               .modal-content
-                   .modal-header
-                       button.close(type='button', data-dismiss='modal', aria-label='Close')
-                           span(aria-hidden='true') X
-                       h4#titleReg.modal-title
-                            | Регистрация нового персонажа
-                   .modal-body
-                       form.form-horizontal(name='formRegister')
-                           .form-group
-                               label.col-lg-2.control-label(for='inputLogin') Login
-                               .col-lg-10
-                                   input.form-control#inputRegister(autocomplete='off', placeholder='login', type='text', value='', name='name')
-                           .form-group
-                               label.col-lg-2.m15.control-label(for='inputPasswordReg') Password
-                               .col-lg-10
-                                   input.form-control.m15#inputPasswordReg(autocomplete='off', placeholder='password', type='password', value='', name='pass')
-                           .form-group
-                               label.col-lg-2.m15.control-label(for='inputPasswordRegAgain') Password again
-                               .col-lg-10
-                                   input.form-control.m15#inputPasswordRegAgain(autocomplete='off', placeholder='password again', type='password', value='', name='passAgain')
-                               .btn.pull-right.btn-group
-                                   button#btnRegister.btn.btn-warning(type='submit') Зарегистрироваться
-
-                   .modal-footer
-                       span.error
-
-       #mess_new_nick.modal.fade
-            .modal-dialog
-                .modal-content
-                    .modal-header
-                    .modal-body
-                        .span Извините, пользователь с таким именем уже существует.
-                    .modal-footer
-                        .btn.pull-right.btn-group
-                            button.btn.btn-danger#btn_to_main(type='button', value = 'cancel') Я подумаю, что делать
-                            button.btn.btn-success#btn_to_register(type='button', value = 'nextAttempt') Я введу другое имя
+      include loginInSite.jade
+      include registerModal.jade
+      include messageNewNick.jade
 
     footer.footer.navbar-fixed-bottom
       .container
@@ -116,18 +59,21 @@ html
             url: "/auth",
             method: "POST",
             data: form.serialize(),
-            complete: function () {
-              $(":submit", form).button("reset");
-            },
+            //omplete: function(data) {
+            //    window.location.href = '/test';
+            //    console.log('data=' + JSON.stringify(data));
+            //},
             statusCode: {
-               200: function () {
+               200: function (id) {
                   //form.html("Yoe are in site").addClass('alert-success');
-                   alert(1);
-                  window.location.href = '/chat';
-               },
-               403: function (jqXHR) {
-                  var error = JSON.parse(jqXHR.responseText);
-                  $('.error', form).html(error.message);
+                  alert(1);
+            //       console.log('id=' + id.id);
+                  window.location.href = '/test';
+            //      window.location.href = '/users:'+id;
+            //  },
+            //   403: function (jqXHR) {
+            //      var error = JSON.parse(jqXHR.responseText);
+            //      $('.error', form).html(error.message);
                }
             }
          });

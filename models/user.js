@@ -2,6 +2,7 @@
 
 var crypto = require('crypto'),
     mongoose = require('libs/mongoose'),
+    async = require('async'),
     Schema = mongoose.Schema;
 
 var schema = new Schema({
@@ -40,6 +41,25 @@ schema.virtual('password')
 
 schema.methods.checkPassword = function (password) {
   return this.encryptPassword(password) === this.hashedPassword;
+};
+
+schema.statics.authorize = function(username, password, callback) {
+    var User = this;
+
+    async.waterfall([
+        function (callback) {
+            User.findOne({username: username}, callback);
+        },
+        function (user, callback) {
+            if(user) {
+                if(user.checkPassword(password)) {
+                    callback(null, user);
+                } else {
+                    next("password incorrect");
+                }
+            }
+        }
+    ], callback);
 };
 
 exports.User = mongoose.model('User', schema);

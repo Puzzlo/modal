@@ -1,0 +1,21 @@
+#mymodal.modal.fade
+    .modal-dialog
+        .modal-content
+            .modal-header
+                button.close(type='button', data-dismiss='modal', aria-label='Close')
+                    span(aria-hidden='true') ?
+                h4.modal-title Modal title
+            .modal-body
+                form.form-horizontal(name='formLogin')
+                    .form-group
+                        label.col-lg-2.control-label(for='inputLogin') Login
+                        .col-lg-10
+                            input.form-control#inputLogin(placeholder='login', type='text', value='', name='name')
+                        label.col-lg-2.m15.control-label(for='inputPassword') Password
+                        .col-lg-10
+                            input.form-control.m15#inputPassword(placeholder='password', type='password', value='', name='pass')
+                        .btn.pull-right
+                            button.btn.btn-default(type='button', data-dismiss='modal') Неприкасаемая кнопка
+                            button.btn.btn-primary(type='submit') Войти в чат
+            .modal-footer
+                span.error

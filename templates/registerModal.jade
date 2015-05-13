@@ -1,0 +1,27 @@
+#register.modal.fade
+    .modal-dialog
+        .modal-content
+            .modal-header
+                button.close(type='button', data-dismiss='modal', aria-label='Close')
+                    span(aria-hidden='true') X
+                h4#titleReg.modal-title
+                    | Регистрация нового персонажа
+            .modal-body
+                form.form-horizontal(name='formRegister')
+                    .form-group
+                        label.col-lg-2.control-label(for='inputLogin') Login
+                        .col-lg-10
+                            input.form-control#inputRegister(autocomplete='off', placeholder='login', type='text', value='', name='name')
+                    .form-group
+                        label.col-lg-2.m15.control-label(for='inputPasswordReg') Password
+                        .col-lg-10
+                            input.form-control.m15#inputPasswordReg(autocomplete='off', placeholder='password', type='password', value='', name='pass')
+                    .form-group
+                        label.col-lg-2.m15.control-label(for='inputPasswordRegAgain') Password again
+                        .col-lg-10
+                            input.form-control.m15#inputPasswordRegAgain(autocomplete='off', placeholder='password again', type='password', value='', name='passAgain')
+                        .btn.pull-right.btn-group
+                            button#btnRegister.btn.btn-warning(type='submit') Зарегистрироваться
+
+            .modal-footer
+                span.error

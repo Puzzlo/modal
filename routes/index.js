@@ -10,7 +10,11 @@ module.exports = function (app) {
 
     app.get('/chat', require('./chat').get);
 
-    app.get('/auth', require('./modal_auth').get);
+    app.get('/test', require('./test').get);
+
+    app.get('/auth', require('./auth').get);
+
+    app.post('/auth', require('./auth').post);
 
     app.post('/registration', require('./registration').post);
 
