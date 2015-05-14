@@ -30,12 +30,18 @@ exports.post = function (req, res, next) {
     //});
 
     User.authorize(name, pass, function (err, user) {
-        if(err) return next(err);
-
+        if(err) {
+            console.log('ошибка авторизации');
+            return next(err);
+        }
+        console.log(user);
+        res.locals.user = req.user;
         req.session.user = user._id;
-        console.log('внутри авторизации    '+req.session.user);
+        res.render('test', {id: user._id});
+        //res.render('test', {id: req.session.user});
         //res.sendStatus(req.session.user);
         //res.json({id:req.session.user});
-        res.send();
+        //res.status(200).end();
+        console.log('внутри авторизации    '+req.session.user);
     });
 };
