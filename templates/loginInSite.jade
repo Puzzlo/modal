@@ -4,7 +4,7 @@
             .modal-header
                 button.close(type='button', data-dismiss='modal', aria-label='Close')
                     span(aria-hidden='true') ?
-                h4.modal-title Modal title
+                h4.modal-title вход
             .modal-body
                 form.form-horizontal(name='formLogin')
                     .form-group
@@ -14,39 +14,51 @@
                         label.col-lg-2.m15.control-label(for='inputPassword') Password
                         .col-lg-10
                             input.form-control.m15#inputPassword(autocomplete=off, placeholder='password', type='password', value='', name='pass')
-                        .btn.pull-right
+                        .btn.pull-left
                             button.btn.btn-default(type='button', data-dismiss='modal') Неприкасаемая кнопка
-                            button.btn.btn-primary(type='submit') Войти в чат
+                            button#chat__btn_into.btn.btn-primary(type='submit') Войти в чат
             .modal-footer
                 span.error
 
     script.
-        $(document.forms['formLogin']).on('submit', function(){
+        $('#chat__btn_into').on('submit', function(){
             var form = $(this);
-            $('.error', form).html('');
-            $('#mymodal').modal('hide');
+            //$('.error', form).html('');
+            //$('#mymodal').modal('hide');
             console.log('in script');
             $.ajax({
                 url: "/auth",
                 method: "POST",
-                data: form.serialize(),
+                data: {name: $('#inputLogin').val(), pass : $('#inputPassword').val()},
+                /*data: form.serialize(),
                 complete: function(data) {
                     $('#mymodal').modal('hide');
-                    alert('in complete ajax');
-                    window.location.href = '/test';
+                    //alert('in complete ajax');
+
+                    //alert('после перенаправления на тест в комплекте');
                     console.log('data=' + JSON.stringify(data));
-                },
+                    if(data.statusText === "error") {
+                        alert(1);
+                        document.location.href = '/auth';
+                    } else {
+                        window.location.href = '/test';
+                    }
+                },*/
                 statusCode: {
                     200: function () {
                         form.html("Yoe are in site").addClass('alert-success');
-                        alert('in status code');
-                        //console.log('id=' + id.id);
+                        //alert('in status code');
+                        console.log('id=' + id.id);
+                        $('#mymodal').modal('hide');
                         window.location.href = '/test';
+                        window.open('/test');
+
                         //      window.location.href = '/users:'+id;
                     },
                     403: function (jqXHR) {
                         var error = JSON.parse(jqXHR.responseText);
                         $('.error', form).html(error.message);
+                        console.log('data=' + JSON.stringify(jqXHR));
                     }
                 }
             });

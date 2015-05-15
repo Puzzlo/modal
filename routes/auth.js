@@ -1,4 +1,4 @@
-//      modal_auth
+//      auth
 
 var User = require('models/user').User;
 var async = require('async');
@@ -35,13 +35,14 @@ exports.post = function (req, res, next) {
             return next(err);
         }
         console.log(user);
-        res.locals.user = req.user;
+        res.locals.user = user;
         req.session.user = user._id;
+
         res.render('test', {id: user._id});
         //res.render('test', {id: req.session.user});
         //res.sendStatus(req.session.user);
         //res.json({id:req.session.user});
-        //res.status(200).end();
+        res.end();
         console.log('внутри авторизации    '+req.session.user);
     });
 };
