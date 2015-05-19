@@ -38,10 +38,13 @@ exports.post = function (req, res, next) {
         res.locals.user = user;
         req.session.user = user._id;
 
-        res.render('test', {id: user._id});
+        //res.render('test', {id: user._id});
         //res.render('test', {id: req.session.user});
         //res.sendStatus(req.session.user);
         //res.json({id:req.session.user});
+        //res.end();
+        //res.status(200).json( { message: 'hi'} );
+        res.json({id:req.session.user});
         res.end();
         console.log('внутри авторизации    '+req.session.user);
     });
